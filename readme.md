@@ -91,8 +91,7 @@ These default to what is listed below.
 # Functions
 
 ### `action`: Declaring a function
-With `action`, you can declare a function. Simply write `action [name]`, and if the first argument is that name, it will execute the action you wrote. **To close an action, write `end`.** **This can also be called from the script at any point after declaring.**
-
+With `action`, you can declare a function. Simply write `action [name]`. **Remember to close it with `end.** Once declared, if you call it, it will run. It does not run it on declare, only on call.
 # Statements
 
 ### `if`: Actions based on conditions
