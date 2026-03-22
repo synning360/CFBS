@@ -141,7 +141,7 @@ You can access command line arguments using `arg`, for example, `arg0` will prov
 ### `read`: Getting user input
 If you want to get user input at any point during the script, you use `read`. An example is `input is read`.
 
-### `print`:
+### `print`: Sending out text
 To output information to the user, you use `print`. An example is `print "hello" ThisVar`. If `ThisVar` is 12 for example, this will print `hello 12`. Strings and variables can be mixed together like this: `print ThisVar "and" ThatVar`.
 
 # Shell commands
