@@ -18,6 +18,17 @@ CFBS offers many listed benefits to you
 - **4. Organization**
     <br>In Makefile, you have to organize everything manually and it makes a mess. Here, it automatically organizes everything for you, providing a clean and navigable output directory instead of a rat's nest.
 
+# CFBS arguments
+
+- **`-q`: Quite mode**
+    <br>Quite mode prevents any output except for errors.
+
+- **`-v`: Verbose mode**
+    <br>Verbose mode outputs anything possible, used for debugging.
+
+- **`-dir`: Custom build map**
+    <br>If you aren't using the name `build.map`, or it's in another directory, this can be used.
+
 ## CFBS `build.map`
 CFBS relies on a text file called `build.map` to tell it how to build your project. In it, you define what compilers/assemblers to use, how to group things, and what linker scripts to use for what groups. Here's an example of a `build.map`. 
 ```txt
@@ -70,12 +81,22 @@ Unlike Makefile, you only need to define this once, and they're globally used un
 These default to what is listed below.
 | Variable | Default |
 |-|-|
-| AS | rustc |
+| AS | clang |
 | CC | rustc |
 | LD | rustc-ld |
 | OBJ | rustc-objcopy |
 | TARGET | match host |
 | FLAGS | none |
+
+# Functions
+
+### `action`: Declaring a function
+With `action`, you can declare a function. Simply write `action [name]`, and if the first argument is that name, it will execute the action you wrote. **To close an action, write `end`.** **This can also be called from the script at any point after declaring.**
+
+# Statements
+
+### `if`: Actions based on conditions
+If you want to only do something if something else is a defined condition, you can use an `if` statement. For example, `if arg0 is "hello"`. These are closed using `end`. You can make multiple conditions using `if arg0 arg1 is "hello" or arg2 not "world"`. `if` supports `or`, `and`, `but not` (xor) for chaining conditions and `not` (!=), `is` (==) for the condition.
 
 # Actions
 
@@ -96,6 +117,9 @@ Object copy will take a linked group's `.elf` and turn it into a `.bin`. The out
 ## `move`: Moving files
 You can move files from the `out` folder (or what folder you defined for output) using the `move` keyword. For example: `move kernel to main` will copy the `kernel.img` from `project/out/done/kernel.img` to `project/kernel.img`
 
+## `delete`: Removing files
+You can remove a group of files, or a directory using this action. For example: `delete kernel` will remove all of the files for that group.
+
 # Files
 
 ## `in`: Compiling/assembling directories
@@ -110,21 +134,20 @@ When you want to compile a single file not in the same directory as the rest of 
 You can change a global variable, or define your own using the `is` keyword. For example `thisvar is 0` will return `0` if you ever recall `thisvar`. Or, if you write `CC is clang`, it will use clang for global compilation.
 
 ### `argX`: Command line arguments
-You can access command line arguments using `arg`, for example, `arg0` will provide you the first command line variable (skipping CFBS program call).
+You can access command line arguments using `arg`, for example, `arg0` will provide you the first command line variable (skipping CFBS program call and any CFBS-related arguments).
 
-# FAQs
+# IO calls
 
-### Does CFBS support incremental building?
-**Yes**. It tracks timestamps, so that only the changed files are compiled/assembled.
+### `read`: Getting user input
+If you want to get user input at any point during the script, you use `read`. An example is `input is read`.
 
-### Can I use an enviroment/global variable with `is`?
-**Yes**. If you want to change a global variable like `CC`, you can simply write `CC is [compiler]`.
+### `print`:
+To output information to the user, you use `print`. An example is `print "hello" ThisVar`. If `ThisVar` is 12 for example, this will print `hello 12`. Strings and variables can be mixed together like this: `print ThisVar "and" ThatVar`.
 
-### How does `with` handle conflicting flags?
-If you use `with` and redefine a flag, it will (for that compilation/assemble only) override the global flag. If you have a global flag like `--no-stack` and use `with -O0`, it will merge them together.
+# Shell commands
+If you use a keyword that is not defined, it will attempt to execute that as a shell command. This allows you to use the shell inside of CFBS.
 
-### Can I define custom actions?
-**Yes**. Using the action keyword, you can define some custom action (example: `Action custom`) for a command like `cfbs custom`.
+# Miscellaneous
 
-### Can I use variables from the command line?
-**Yes**. You can define them as `thisvar is arg0`, in that example the first argument from the terminal is now `thisvar`, or you can just use `arg0` instead of renaming it.
+### `end`: Closing statements
+When you start a `group`, `if` or `action`, you need to close them using an `end`. Simply, at the end of that statement, write `end`.
