@@ -1,5 +1,5 @@
 # Carbon Fiber Build System
-v1.0.0-Alpha, **Copyright (C) 2026, synning360**
+v1.0.1.0, **Copyright (C) 2026, synning360**
 
 # What is CFBS?
 CFBS (Carbon Fiber Build System) is a replacement to Make targeted at bare-metal programming. It uses simpler lists of things to compile, groups things together, helping you organize files and automate your build process, and giving you the control Cargo took away without the complexity of Make.
@@ -32,6 +32,15 @@ CFBS offers many listed benefits to you
 # Requirements
 This program requires the following:
 - **`rustc`**: For compiling it and using it to build Rust
+
+# Versioning
+The version number is quite simple, it's `FullRelease.NewFeature.BugPatch.Stage`. For example, `v2.1.6.0` is release 2, second edition with 6 bug patcjes amd `.0` is alpha stage.
+### Stages
+- `.0`: In-Dev
+- `.1`: Alpha
+- `.2`: Beta
+- `.3`: Stable
+- `.4`: Final
 
 ## CFBS `build.map`
 CFBS relies on a text file called `build.map` to tell it how to build your project. In it, you define what compilers/assemblers to use, how to group things, and what linker scripts to use for what groups. Here's an example of a `build.map`. 
