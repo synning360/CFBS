@@ -5,6 +5,9 @@ set -e
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 
+echo "--- Getting depends ---"
+rustup component add llvm-tools-preview
+
 echo "--- Building CFBS v1.0.0-Alpha ---"
 rustc src/cfbs.rs -o cfbs
 

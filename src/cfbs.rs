@@ -13,6 +13,7 @@ fn main() {
     let config = preprocess::preprocess();
 
     if config.verbosity >= 1 { println!("--- CFBS v1.0.0-Alpha ---"); }
+    if config.verbosity == 2 { println!("Preprocessing successful."); }
 
     let content = match fs::read_to_string(&config.map_path) {
         Ok(c) => {

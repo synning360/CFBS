@@ -2,21 +2,21 @@
 v1.0.0-Alpha, **Copyright (C) 2026, synning360**
 
 # What is CFBS?
-CFBS (Carbon Fiber Build System) is a replacement to Makefile targeted at bare-metal programming. It uses simpler lists of things to compile, groups things together, helping you organize files and automate your build process, and giving you the control Cargo took away without the complexity of Makefile.
+CFBS (Carbon Fiber Build System) is a replacement to Make targeted at bare-metal programming. It uses simpler lists of things to compile, groups things together, helping you organize files and automate your build process, and giving you the control Cargo took away without the complexity of Make.
 
-# Why use CFBS over Makefile and others?
+# Why use CFBS over Make and others?
 CFBS offers many listed benefits to you
 - **1. Syntax**
-    <br>Unlike Makefile's complex syntax with tons of variables and constant directory management and super long lines to get a single thing done, CFBS uses keywords and groups so you worry more about the code you want to build and less about the build script. **And, it doesn't require indents.**
+    <br>Unlike Make's complex syntax with tons of variables and constant directory management and super long lines to get a single thing done, CFBS uses keywords and groups so you worry more about the code you want to build and less about the build script. **And, it doesn't require indents.**
 
 - **2. Groups**
-    <br>In Makefile, you are constantly worried about directories and file paths. Here, you'll never have to worry about them again. Instead of constantly repeating the same path and dealing with path directories, you make a group, and from there on, all of them can be accessed by that group.
+    <br>In Make, you are constantly worried about directories and file paths. Here, you'll never have to worry about them again. Instead of constantly repeating the same path and dealing with path directories, you make a group, and from there on, all of them can be accessed by that group.
 
 - **3. Error Detection**
-    <br>If you use Makefile, you know what I'm talking about. Returning "Syntax Error" without a single line or any details at all. CFBS provides a line and reason, and even a way to fix the syntax.
+    <br>If you use Make, you know what I'm talking about. Returning "Syntax Error" without a single line or any details at all. CFBS provides a line and reason, and even a way to fix the syntax.
 
 - **4. Organization**
-    <br>In Makefile, you have to organize everything manually and it makes a mess. Here, it automatically organizes everything for you, providing a clean and navigable output directory instead of a rat's nest.
+    <br>In Make, you have to organize everything manually and it makes a mess. Here, it automatically organizes everything for you, providing a clean and navigable output directory instead of a rat's nest.
 
 # CFBS arguments
 
@@ -28,6 +28,10 @@ CFBS offers many listed benefits to you
 
 - **`-dir`: Custom build map**
     <br>If you aren't using the name `build.map`, or it's in another directory, this can be used.
+
+# Requirements
+This program requires the following:
+- **`rustc`**: For compiling it and using it to build Rust
 
 ## CFBS `build.map`
 CFBS relies on a text file called `build.map` to tell it how to build your project. In it, you define what compilers/assemblers to use, how to group things, and what linker scripts to use for what groups. Here's an example of a `build.map`. 
@@ -96,6 +100,9 @@ With `action`, you can declare a function. Simply write `action [name]`. **Remem
 
 ### `if`: Actions based on conditions
 If you want to only do something if something else is a defined condition, you can use an `if` statement. For example, `if arg0 is "hello"`. These are closed using `end`. You can make multiple conditions using `if arg0 arg1 is "hello" or arg2 not "world"`. `if` supports `or`, `and`, `but not` (xor) for chaining conditions and `not` (!=), `is` (==) for the condition.
+
+### `arg0 is arg0`: Conditioning nil values
+When you need an `if` statement to fire if a value is nil, you type `thisvar is thisvar`.
 
 # Actions
 
