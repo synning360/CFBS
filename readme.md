@@ -34,7 +34,7 @@ This program requires the following:
 - **`rustc`**: For compiling it and using it to build Rust
 
 # Versioning
-The version number is quite simple, it's `FullRelease.NewFeature.BugPatch.Stage`. For example, `v2.1.6.0` is release 2, second edition with 6 bug patcjes amd `.0` is alpha stage.
+The version number is quite simple, it's `FullRelease.NewFeature.BugPatch.Stage`. For example, `v2.1.6.0` is release 2, second edition with 6 bug patches amd `.0` is alpha stage.
 ### Stages
 - `.0`: In-Dev
 - `.1`: Alpha
